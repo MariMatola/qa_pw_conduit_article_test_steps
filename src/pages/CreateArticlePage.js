@@ -34,8 +34,8 @@ export class CreateArticlePage {
 
   async fillInTags(tags, page) {
     await test.step(`Fill in tags`, async () => {
-      for (let tag in tags) {
-        this.tagsField.fill(tag);
+      for (let tag of tags) {
+        await this.tagsField.fill(tag);
         await page.keyboard.press('Enter');
       }
     });
@@ -54,7 +54,9 @@ export class CreateArticlePage {
   }
 
   async assertErrorMessageIsNotVisible(messageText) {
-    await test.step(`Assert the '${messageText}' error is shown`, async () => {
+    await test.step(
+      `Assert the '${messageText}' error is not displayed`, 
+      async () => {
       await expect(this.page.getByText(messageText)).toBeHidden();
     });
   }

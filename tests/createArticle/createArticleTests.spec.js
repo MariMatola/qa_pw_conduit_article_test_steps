@@ -91,7 +91,7 @@ test('Create an article without article text', async ({page}) => {
   );
 });
 
-test('Create an article without article tag', async () => {
+test('Create an article without article tag', async ({ page }) => {
   await homePage.clickNewArticleLink();
 
   await createArticlePage.fillInTitle(articleTestData.title);
