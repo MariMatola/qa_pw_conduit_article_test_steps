@@ -6,7 +6,39 @@ export class CreateArticlePage {
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
-    this.errorMessage = page.getByRole('list').nth(1);
+    this.titleField = page.getByPlaceholder('Article Title');
+    this.descriptionField = page
+      .getByPlaceholder('What\'s this article about?');
+    this.bodyField = page.getByPlaceholder('Write your article (in');
+    this.tagsField = page.getByPlaceholder('Enter tags');
+    
+  }
+
+  async fillInTitle(title) {
+    await test.step(`Fill in title`, async () => {
+      await  this.titleField.fill(title);
+    });
+  }
+
+  async fillInDescription(description) {
+    await test.step(`Fill in description`, async () => {
+      await  this.descriptionField.fill(description);
+    });
+  }
+
+  async fillInBody(body) {
+    await test.step(`Fill in body`, async () => {
+      await  this.bodyField.fill(body);
+    });
+  }
+
+  async fillInTags(tags, page) {
+    await test.step(`Fill in tags`, async () => {
+      for (let tag in tags) {
+        this.tagsField.fill(tag);
+        await page.keyboard.press('Enter');
+      }
+    });
   }
 
   async clickPublishArticleButton() {
@@ -17,7 +49,13 @@ export class CreateArticlePage {
 
   async assertErrorMessageContainsText(messageText) {
     await test.step(`Assert the '${messageText}' error is shown`, async () => {
-      await expect(this.errorMessage).toContainText(messageText);
+      await expect(this.page.getByText(messageText)).toBeVisible();
+    });
+  }
+
+  async assertErrorMessageIsNotVisible(messageText) {
+    await test.step(`Assert the '${messageText}' error is shown`, async () => {
+      await expect(this.page.getByText(messageText)).toBeHidden();
     });
   }
 }
