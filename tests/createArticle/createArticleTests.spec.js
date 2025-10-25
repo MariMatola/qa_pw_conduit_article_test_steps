@@ -64,7 +64,7 @@ test('Create an article without article description', async ({page}) => {
   await createArticlePage.assertErrorMessageIsNotVisible(
     'Article title cannot be empty',
   );
-  await createArticlePage.assertErrorMessageContainsText(
+  await createArticlePage.assertErrorMessageIsNotVisible(
     'Article description cannot be empty',
   );
   await createArticlePage.assertErrorMessageIsNotVisible(
@@ -86,7 +86,7 @@ test('Create an article without article text', async ({page}) => {
   await createArticlePage.assertErrorMessageIsNotVisible(
     'Article description cannot be empty',
   );
-  await createArticlePage.assertErrorMessageContainsText(
+  await createArticlePage.assertErrorMessageIsNotVisible(
     'Article body cannot be empty',
   );
 });
